@@ -6,12 +6,13 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { VehiculosComponent } from './modules/vehiculos/vehiculos.component';
 import { VehiculoService } from './modules/vehiculos/vehiculo.service';
+import { ClientesComponent } from './modules/clientes/clientes.component';
 import { RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  {path:'',redirectTo:'/404',pathMatch:'full'},
-  {path:'vehiculos',component:VehiculosComponent}
-  // {path:'clientes',component:VehiculosComponent}
+  {path:'',redirectTo:'/home',pathMatch:'full'},
+  {path:'vehiculos',component:VehiculosComponent},
+  {path:'clientes',component:ClientesComponent}
 ];
 
 @NgModule({
@@ -19,7 +20,8 @@ const routes: Routes = [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    VehiculosComponent
+    VehiculosComponent,
+    ClientesComponent
   ],
   imports: [
     BrowserModule,

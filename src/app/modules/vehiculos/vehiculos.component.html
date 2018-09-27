@@ -3,7 +3,7 @@
   <div class="card-header">Lista de Vehiculos</div>
   <div class="card-body text-primary">
     <!-- <h5 class="card-title">Listado de Vehiculos</h5> -->
-    <table class="table ">
+    <table class="table table-bordered">
        <thead class="thead-dark">
          <tr>
            <th>Id</th>
@@ -12,6 +12,7 @@
            <th>Consumo 100Km</th>
            <th>Capacidad</th>
            <th>Fecha</th>
+           <th>Opciones</th>
          </tr>
        </thead>
        <tbody *ngFor="let car of vehiculos">
@@ -21,6 +22,12 @@
          <td>{{car.consumo}}</td>
          <td>{{car.capacidad}}</td>
          <td>{{car.createAt}}</td>
+         <td>
+           <div class="button-group">
+             <button class="btn btn-primary btn-sm" type="button" name="button"> Modificar</button>
+             <button class="btn btn-danger btn-sm" type="button" name="button"> Eliminar</button>
+           </div>
+         </td>
        </tbody>
     </table>
   </div>

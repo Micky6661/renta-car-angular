@@ -8,14 +8,14 @@ import {VehiculoService} from './vehiculo.service';
   styleUrls: ['./vehiculos.component.css']
 })
 export class VehiculosComponent implements OnInit {
-
-  vehiculos: Vehiculo[];
+  public data : Vehiculo[];
+  // vehiculos: Vehiculo[];
 
   constructor(private vehiculoService: VehiculoService) {}
 
   ngOnInit() {
     this.vehiculoService.getVehiculos().subscribe(
-      vehiculos => this.vehiculos = vehiculos
+      vehiculos => this.data = vehiculos
     );
   }
 

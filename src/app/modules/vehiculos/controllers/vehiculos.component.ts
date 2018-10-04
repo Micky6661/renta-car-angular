@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {Vehiculo} from './vehiculo';
-import {VehiculoService} from './vehiculo.service';
+import {Vehiculo} from '../models/vehiculo';
+import {VehiculoService} from '../services/vehiculo.service';
 
 @Component({
   selector: 'app-vehiculos',
-  templateUrl: './vehiculos.component.html',
-  styleUrls: ['./vehiculos.component.css']
+  templateUrl: '../partials/vehiculos.component.html',
+  // styleUrls: ['./vehiculos.component.css']
 })
 export class VehiculosComponent implements OnInit {
+
   public data : Vehiculo[];
-  // vehiculos: Vehiculo[];
 
   constructor(private vehiculoService: VehiculoService) {}
 
@@ -18,6 +18,5 @@ export class VehiculosComponent implements OnInit {
       vehiculos => this.data = vehiculos
     );
   }
-
 
 }

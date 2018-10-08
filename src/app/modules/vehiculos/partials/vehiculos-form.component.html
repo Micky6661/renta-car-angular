@@ -5,13 +5,12 @@
     </div>
     <div class="card-body">
       <form>
-
         <div class="form-group row">
           <label class="col-sm-2 col-form-label" for="marca">Marca :</label>
           <div class="col-sm-9">
-            <select class="form-control" id="marca" required>
-              <option value="" selected>Seleccione una Marca</option>
-              <option *ngFor="let marca of marcas" [value]="marca.id">{{marca.descripcion}}</option>
+            <select class="form-control" [(ngModel)]="vehiculo.marca">
+              <option *ngFor="let m of marcas" [ngValue]="m">{{m.descripcion}}</option>
+              <option value="vehiculo.marca.id">{{vehiculo.marca.descripcion}}</option>
             </select>
           </div>
         </div>
@@ -21,50 +20,36 @@
           <div class="col-sm-9">
             <select class="form-control" id="modelo" required>
               <option value="" selected>Seleccione un Modelo</option>
-              <option *ngFor="let modelo of modelos" [value]="modelo.id">{{modelo.descripcion}}</option>
+              <option *ngFor="let modelo of modelos" [ngValue]="modelo">{{modelo.descripcion}}</option>
             </select>
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Año :</label>
-          <div class="col-sm-9">
-            <input type="number" class="form-control" id="inputPassword3" placeholder="Año">
           </div>
         </div>
 
         <div class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">Matricula :</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputPassword3" placeholder="Matricula">
+            <input type="text" [(ngModel)]="vehiculo.matricula" class="form-control" id="inputPassword3" placeholder="Matricula">
           </div>
         </div>
 
         <div class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">Chasis :</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputPassword3" placeholder="Chasis">
+            <input type="text" [(ngModel)]="vehiculo.chasis" class="form-control" id="inputPassword3" placeholder="Chasis">
           </div>
         </div>
 
         <div class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">Motor:</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputPassword3" placeholder="Motor">
-          </div>
-        </div>
-
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Consumo :</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="inputPassword3" placeholder="Consumo">
+            <input type="text" [(ngModel)]="vehiculo.motor" class="form-control" id="inputPassword3" placeholder="Motor">
           </div>
         </div>
 
         <div class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">Observacion :</label>
           <div class="col-sm-9">
-            <textarea class="form-control" name="name" rows="5" cols="80" placeholder="Observacion Breve del Vehiculo"></textarea>
+            <textarea [(ngModel)]="vehiculo.observacion" class="form-control" name="name" rows="5" cols="80" placeholder="Observacion Breve del Vehiculo"></textarea>
           </div>
         </div>
 

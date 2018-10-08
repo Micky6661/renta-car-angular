@@ -13,19 +13,10 @@ import { VehiculoService } from '../services/vehiculo.service';
 })
 export class VehiculosFormComponent implements OnInit {
 
-  // public data: Vehiculo[];
-  // public marcas: Marca[];
-  // public modelos: Modelo[];
-
   constructor(private vehiculoService: VehiculoService) { }
 
   ngOnInit() {
-    // this.marcaService.getMarcas().subscribe(
-    //   marcas => this.marcas = marcas
-    // );
-    // this.modeloService.getModelos().subscribe(
-    //   modelos => this.modelos = modelos
-    // );
+
   }
 
 

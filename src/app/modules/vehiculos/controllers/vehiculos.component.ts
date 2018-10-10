@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Vehiculo} from '../models/vehiculo';
-import {VehiculoService} from '../services/vehiculo.service';
+import { Vehiculo } from '../models/vehiculo';
+import { VehiculoService } from '../services/vehiculo.service';
 
 @Component({
   selector: 'app-vehiculos',
@@ -9,7 +9,7 @@ import {VehiculoService} from '../services/vehiculo.service';
 })
 export class VehiculosComponent implements OnInit {
 
-  public data : Vehiculo[];
+  public data: Vehiculo[];
 
   constructor(private vehiculoService: VehiculoService) {}
 

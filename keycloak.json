@@ -1,0 +1,8 @@
+{
+  "realm": "renta-car",
+  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoz672ZQb2tx5PreyUZqU0UnHnuBbFwSwQiyJLAbg+2OZAW39DYc5mNjm3W0GkcQfFj9sfJbdbhFN9ghXBGxw54gpnxJgIQXYFGXjNcm3cm5Ly5bQj0Fmq72L2XIbRzzzNQxFaNXJ5Yn4yMODdTR5qiX8HMdYC4BG3MpOSdUdpM+MaVBjSL0p3tx/5dwjqJ3N909B7xOSZRI3MIyoCCwLg3iyDNIPH5ejO7c9F6MJjYxOV20tIzGj0Nc52cAyN2EJzA2ki+p6pr97aPtSBRIKJadYqld7+8ES1T4Qc7bXUHRTIh3X40s6OmPnNVy7kRh+ewVPkJusManSPkI6FJFGwwIDAQAB",
+  "auth-server-url": "http://localhost:8080/auth",
+  "ssl-required": "none",
+  "resource": "renta-car-frontend",
+  "public-client": true
+}

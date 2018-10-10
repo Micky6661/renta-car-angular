@@ -1,6 +1,38 @@
-<app-header></app-header>
-<br>
-<div class="container">
-  <router-outlet></router-outlet>
+<div class="container" [hidden]="login">
+  <div class="row" id="pwd-container">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <section class="login-form">
+        <form method="post" action="#" role="login">
+          <h2 class="text-center">Renta Car</h2>
+          <img style="width:90px" src="data:image/png;base64,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">
+          <a class="navbar-brand" href="#"> </a>
+          <input type="text" [(ngModel)]='username' name="username" class="form-control input-lg" placeholder="Usuario" required />
+
+          <input type="password" [(ngModel)]='password' name="password" class="form-control input-lg" placeholder="Constraseña" required />
+
+          <button (click)="doLogin()" type="submit" name="go" class="btn btn-lg btn-primary btn-block">Ingresar</button>
+          <div>
+            <a href="#">Crear Usuario</a> or <a href="#">Restaurar Contraseña</a>
+          </div>
+
+        </form>
+
+        <!-- <div class="form-links"> -->
+        <!-- <a href="#">www.website.com</a> -->
+        <!-- </div> -->
+      </section>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
 </div>
-<app-footer></app-footer>
+
+<div [hidden]="!login">
+  <app-header></app-header>
+  <br>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
+</div>

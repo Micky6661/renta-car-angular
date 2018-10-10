@@ -1,0 +1,14 @@
+{
+    "clientId": "renta-car-frontend",
+    "name" : "renta-car-frontend",
+    "description" : "Created with keycloak-schematic",
+    "rootUrl": "http://localhost:4200",
+    "baseUrl": "http://localhost:4200",
+    "redirectUris": [
+        "/*"
+    ],
+    "webOrigins": [
+        "http://localhost:4200"
+    ]
+}
+

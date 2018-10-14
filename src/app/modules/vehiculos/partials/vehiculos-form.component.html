@@ -1,52 +1,62 @@
 <div style="padding-bottom:5%">
   <div class="card border-primary mb-3">
     <div class="card-header">
-      <h2>Crear Vehiculo</h2>
+      <h2>{{titulo}}</h2>
     </div>
     <div class="card-body">
-      <form>
-        <div class="form-group row">
+      <!-- <form> -->
+        <div *ngIf="(vehiculo)"  class="form-group row">
           <label class="col-sm-2 col-form-label" for="marca">Marca :</label>
           <div class="col-sm-9">
             <select class="form-control" [(ngModel)]="vehiculo.marca">
-              <option *ngFor="let m of marcas" [ngValue]="m">{{m.descripcion}}</option>
-              <option value="vehiculo.marca.id">{{vehiculo.marca.descripcion}}</option>
+              <option *ngFor="let mar of listaMarcas" [ngValue]="mar">{{mar.descripcion}}</option>
+              <option *ngIf="(vehiculo.marca)" [ngValue]="vehiculo.marca" selected>{{vehiculo.marca.descripcion}}</option>
             </select>
           </div>
         </div>
 
-        <div class="form-group row">
+        <div *ngIf="(vehiculo)" class="form-group row">
           <label class="col-sm-2 col-form-label" for="modelo">Modelo :</label>
           <div class="col-sm-9">
-            <select class="form-control" id="modelo" required>
-              <option value="" selected>Seleccione un Modelo</option>
-              <option *ngFor="let modelo of modelos" [ngValue]="modelo">{{modelo.descripcion}}</option>
+            <select class="form-control" [(ngModel)]="vehiculo.modelo" required placeholder="Seleccione un Valor" >
+              <option *ngFor="let mod of listaModelos" [ngValue]="mod">{{mod.descripcion}}</option>
+              <option *ngIf="(vehiculo.modelo)" [ngValue]="vehiculo.modelo" selected>{{vehiculo.modelo.descripcion}}</option>
             </select>
           </div>
         </div>
 
-        <div class="form-group row">
+        <div *ngIf="(vehiculo)" class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">Matricula :</label>
           <div class="col-sm-9">
-            <input type="text" [(ngModel)]="vehiculo.matricula" class="form-control" id="inputPassword3" placeholder="Matricula">
+            <input type="text" [(ngModel)]="vehiculo.matricula" class="form-control" placeholder="Matricula">
           </div>
         </div>
 
-        <div class="form-group row">
+        <div *ngIf="(vehiculo)" class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">Chasis :</label>
           <div class="col-sm-9">
-            <input type="text" [(ngModel)]="vehiculo.chasis" class="form-control" id="inputPassword3" placeholder="Chasis">
+            <input type="text" [(ngModel)]="vehiculo.chasis" class="form-control"  placeholder="Chasis">
           </div>
         </div>
 
-        <div class="form-group row">
+        <div *ngIf="(vehiculo)" class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">Motor:</label>
           <div class="col-sm-9">
-            <input type="text" [(ngModel)]="vehiculo.motor" class="form-control" id="inputPassword3" placeholder="Motor">
+            <input type="text" [(ngModel)]="vehiculo.motor" class="form-control" placeholder="Motor">
           </div>
         </div>
 
-        <div class="form-group row">
+        <div *ngIf="(vehiculo)" class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Disponible:</label>
+          <div class="col-sm-9">
+            <select class="form-control" [(ngModel)]="vehiculo.disponible" required>
+              <option [ngValue]=true>Si</option>
+              <option [ngValue]=false>No</option>
+            </select>
+          </div>
+        </div>
+
+        <div *ngIf="(vehiculo)" class="form-group row">
           <label for="inputPassword3" class="col-sm-2 col-form-label">Observacion :</label>
           <div class="col-sm-9">
             <textarea [(ngModel)]="vehiculo.observacion" class="form-control" name="name" rows="5" cols="80" placeholder="Observacion Breve del Vehiculo"></textarea>
@@ -57,7 +67,7 @@
           <button type="submit" class="btn btn-success">Guardar</button>
           <button type="button" class="btn btn-danger" routerLink="/vehiculos">Cancelar</button>
         </div>
-      </form>
+      <!-- </form> -->
     </div>
   </div>
 </div>

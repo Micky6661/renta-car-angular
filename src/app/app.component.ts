@@ -1,6 +1,8 @@
+import { Router } from '@angular/router';
 import { UserService } from './modules/public/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from './modules/public/models/user';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
@@ -10,20 +12,21 @@ import { User } from './modules/public/models/user';
 
 export class AppComponent implements OnInit {
 
-  // public user: User;
   public login = false;
 
   public user: User;
   public username: string;
   public password: string;
+  public route: Router;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+
   }
 
-  public doLogin(): void {
-    this.getUser();
+  async doLogin() {
+    await this.getUser();
     this.validateUser(this.user);
   }
 
@@ -31,20 +34,18 @@ export class AppComponent implements OnInit {
     if (user != null) {
       if (user.password === this.password) {
         this.login = true;
+        swal('Ingresado', 'Bienvenido a RentaCar ' + this.username, 'success');
       } else {
         this.login = false;
+        swal('Error', 'Usuario o Contraseña no validos', 'error');
       }
     } else {
       this.login = false;
+      swal('Error', 'No se pudo obtener una Respuesta', 'error');
     }
   }
 
-  public getUser(): void {
-    this.userService.getUserByName(this.username).subscribe(
-      user => this.user = user
-    );
+  async getUser() {
+    this.user = await this.userService.getUserByName(this.username);
   }
-
-
-
 }

@@ -1,9 +1,9 @@
+import { async } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
 import { Vehiculo } from '../models/vehiculo';
 import { Marca } from '../models/marca';
 import { Modelo } from '../models/modelo';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -11,16 +11,21 @@ import { HttpClient } from '@angular/common/http';
 })
 export class VehiculoService {
 
-  private urlEndPoint: string = 'http://localhost:8080/api/vehiculos';
+  private urlEndPoint = 'http://localhost:8080/api/vehiculos';
 
   constructor(private http: HttpClient) { }
 
   public getVehiculos(): Observable<Vehiculo[]> {
-    return this.http.get<Vehiculo[]>(this.urlEndPoint)
+    return this.http.get<Vehiculo[]>(this.urlEndPoint);
   }
 
+//   async getVehiculoById(carId: string) {
+//     const response = await this.http.get<Vehiculo>(this.urlEndPoint + '/' + carId).toPromise();
+//     return response;
+//  }
+
   public getVehiculoById(carId: string): Observable<Vehiculo> {
-    return this.http.get<Vehiculo>(this.urlEndPoint + '/' + carId)
+    return this.http.get<Vehiculo>(this.urlEndPoint + '/' + carId);
   }
 
   public insertVehiculo(car: Vehiculo): Observable<Vehiculo> {
@@ -36,11 +41,11 @@ export class VehiculoService {
   }
 
   public getMarcas(): Observable<Marca[]> {
-    return this.http.get<Marca[]>(this.urlEndPoint + '/marcas')
+    return this.http.get<Marca[]>(this.urlEndPoint + '/marcas');
   }
 
   public getModelos(): Observable<Modelo[]> {
-    return this.http.get<Modelo[]>(this.urlEndPoint + '/modelos')
+    return this.http.get<Modelo[]>(this.urlEndPoint + '/modelos');
   }
 
 }

@@ -17,15 +17,15 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  public doLogin(username: string, password: string) {
-    this.userService.getUserByName(username).subscribe(
-      users => this.user = users
-    );
-    if (this.user != null) {
-      if (this.user.password == password) {
-        this.loginSuccess = true;
-      }
-    }
-  }
+  // public doLogin(username: string, password: string) {
+  //   this.userService.getUserByName(username).subscribe(
+  //     users => this.user = users
+  //   );
+  //   if (this.user != null) {
+  //     if (this.user.password == password) {
+  //       this.loginSuccess = true;
+  //     }
+  //   }
+  // }
 
 }

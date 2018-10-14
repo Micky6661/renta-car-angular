@@ -1,8 +1,13 @@
+import { Marca } from './marca';
+import { Modelo } from './modelo';
+
 export class Vehiculo {
   id: number;
-  marca: string;
-  modelo: string;
-  consumo: string;
-  capacidad: number;
-  createAt: string;
+  marca: Marca;
+  modelo: Modelo;
+  matricula: string;
+  chasis: number;
+  motor: string;
+  disponible: boolean;
+  observacion: string;
 }

@@ -23,10 +23,9 @@ import { UserService } from './modules/public/services/user.service';
 /**Services Imports **/
 
 import { RouterModule, Routes } from '@angular/router';
-import { DataTableModule } from "angular-6-datatable";
+import { DataTableModule } from 'angular-6-datatable';
 
 import { FormsModule } from '@angular/forms';
-
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

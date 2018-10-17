@@ -5,6 +5,7 @@ import { RentaService } from '../services/renta.service';
 import { Renta } from '../models/renta';
 import { Cliente } from '../../clientes/models/cliente';
 import { Vehiculo } from '../../vehiculos/models/vehiculo';
+import { DetalleRenta } from '../models/detalle-renta';
 
 @Component ({
   selector: 'app-rentas-form',
@@ -16,7 +17,15 @@ export class RentasFormComponent implements OnInit {
   listaClientes: Cliente[];
   listaVehiculos: Vehiculo[];
   renta: Renta;
+  listaDetalles: DetalleRenta[];
+
+  detalleModel = new DetalleRenta;
   isEdit: boolean;
+
+  /** Variables Logicas*/
+  listaEliminar: DetalleRenta[];
+  listaModificar: DetalleRenta[];
+  listaGuardar: DetalleRenta[];
 
   constructor(private router: Router , private activatedRoute: ActivatedRoute, private rentaService: RentaService) { }
 
@@ -38,6 +47,18 @@ export class RentasFormComponent implements OnInit {
         this.renta = new Renta;
       }
     });
+  }
+
+  public addItem(detalleModel: DetalleRenta) {
+    if (detalleModel != null) {
+      if (detalleModel.vehiculo != null && detalleModel.fechaInicioRenta != null && detalleModel.fechaFinRenta != null) {
+        this.listaGuardar.push(detalleModel);
+      } else {
+        swal('Aviso', 'Complete los campos obligatorios', 'warning');
+      }
+    } else {
+      swal('Aviso', 'Complete los campos obligatorios', 'warning');
+    }
   }
 
   public submitSave(): void {

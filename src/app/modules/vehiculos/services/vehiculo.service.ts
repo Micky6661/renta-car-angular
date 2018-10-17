@@ -56,4 +56,8 @@ export class VehiculoService {
     return this.http.get<Modelo[]>(this.urlEndPoint + '/modelos');
   }
 
+  async validarVehiculo(matricula: string, chasis: string) {
+    const response = this.http.get<Vehiculo>(this.urlEndPoint + '/validar/' + matricula + '/' + chasis).toPromise();
+    return response;
+  }
 }

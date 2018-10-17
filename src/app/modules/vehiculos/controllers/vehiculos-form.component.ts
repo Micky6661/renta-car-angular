@@ -58,29 +58,49 @@ export class VehiculosFormComponent implements OnInit {
     );
   }
 
-  public submitSave(): void {
-    this.vehiculoService.insertVehiculo(this.vehiculo).subscribe(
-      response => {
-        if (response['status'] === 201 || response['status'] === 200) {
-          this.router.navigate(['/vehiculos']);
-          swal('Guardado', 'Registro guardado exitosamente', 'success');
-        } else {
-          swal('Error', 'No se ha podido guardar registro', 'error');
-        }
-      }
+  async validarMatricula(matricula: string , chasis: string) {
+    let veh: any;
+    await this.vehiculoService.validarVehiculo(matricula , chasis).then(
+      (result) => veh = result
     );
+    if (veh != null && veh['id'] !== this.vehiculo.id) {
+      swal('Error', 'Ya existe un vehiculo con misma Matricula o Chasis', 'error');
+      return false;
+    } else {
+      return true;
+    }
   }
 
-  public submitEdit(): void {
-    this.vehiculoService.updateVehiculo(this.vehiculo).subscribe(
-      response => {
-        if (response['status'] === 202 || response['status'] === 200) {
-          this.router.navigate(['/vehiculos']);
-          swal('Modificado', 'Registro modificado exitosamente', 'success');
-        } else {
-          swal('Error', 'No se ha podido modificar registro', 'error');
+  async submitSave() {
+    const insertable = await this.validarMatricula(this.vehiculo.matricula, this.vehiculo.chasis);
+    if (insertable) {
+      this.vehiculoService.insertVehiculo(this.vehiculo).subscribe(
+        response => {
+          if (response['status'] === 201 || response['status'] === 202 || response['status'] === 200) {
+            this.router.navigate(['/vehiculos']);
+            swal('Guardado', 'Registro guardado exitosamente', 'success');
+          } else {
+            swal('Error', 'No se ha podido guardar registro', 'error');
+          }
         }
-      }
-    );
+      );
+    }
   }
+
+  async submitEdit() {
+    const insertable = await this.validarMatricula(this.vehiculo.matricula, this.vehiculo.chasis);
+    if (insertable) {
+      this.vehiculoService.updateVehiculo(this.vehiculo).subscribe(
+        response => {
+          if (response['status'] === 201 || response['status'] === 202 || response['status'] === 200) {
+            this.router.navigate(['/vehiculos']);
+            swal('Guardado', 'Registro modificado exitosamente', 'success');
+          } else {
+            swal('Error', 'No se ha podido modificado registro', 'error');
+          }
+        }
+      );
+    }
+  }
+
 }

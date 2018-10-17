@@ -6,7 +6,7 @@ export class Vehiculo {
   marca: Marca;
   modelo: Modelo;
   matricula: string;
-  chasis: number;
+  chasis: string;
   motor: string;
   disponible: boolean;
   observacion: string;

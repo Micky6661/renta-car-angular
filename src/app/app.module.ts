@@ -18,6 +18,8 @@ import { LoginComponent } from './modules/public/controllers/login.component';
 /**Components imports**/
 
 /**Services Imports **/
+import { RentaService } from './modules/rentas/services/renta.service';
+import { ClienteService } from './modules/clientes/services/cliente.service';
 import { VehiculoService } from './modules/vehiculos/services/vehiculo.service';
 import { UserService } from './modules/public/services/user.service';
 /**Services Imports **/
@@ -26,10 +28,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { DataTableModule } from 'angular-6-datatable';
 
 import { FormsModule } from '@angular/forms';
+import { RentasComponent } from './modules/rentas/controllers/rentas.component';
+import { RentasFormComponent } from './modules/rentas/controllers/rentas-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '', component: AppComponent },
+  // { path: '', component: AppComponent },
   /** Rutas de los distintos modulos **/
   { path: 'login', component: LoginComponent },
   /** Vehiculos */
@@ -42,14 +46,15 @@ const routes: Routes = [
   { path: 'clientes/create', component: ClientesFormComponent },
   { path: 'clientes/update/:id', component: ClientesFormComponent },
   /** Rentas **/
-  // { path: 'rentas', component: RentasComponent },
-  // { path: 'rentas/create', component: RentasFormComponent },
-  // { path: 'rentas/update/:id', component: RentasFormComponent }
+  { path: 'rentas', component: RentasComponent },
+  { path: 'rentas/create', component: RentasFormComponent },
+  { path: 'rentas/update/:id', component: RentasFormComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+
     HeaderComponent,
     FooterComponent,
 
@@ -58,6 +63,9 @@ const routes: Routes = [
 
     ClientesComponent,
     ClientesFormComponent,
+
+    RentasComponent,
+    RentasFormComponent,
 
     LoginComponent
   ],
@@ -70,6 +78,8 @@ const routes: Routes = [
   ],
   providers: [
     VehiculoService,
+    ClienteService,
+    RentaService,
     UserService
   ],
   bootstrap: [AppComponent]

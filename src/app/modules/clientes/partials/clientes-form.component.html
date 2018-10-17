@@ -1,34 +1,52 @@
-<h2>Clientes</h2>
-<div class="card border-primary mb-3" style="max-width: 90%;">
-  <div class="card-header">Lista de Clientes</div>
-  <div class="card-body text-primary">
-    <!-- <h5 class="card-title">Listado de Vehiculos</h5> -->
-    <table class="table ">
-       <thead class="thead-dark">
-         <tr>
-           <th>Id</th>
-           <th>Nombre</th>
-           <th>Tipo de Cliente</th>
-           <th>Telefono</th>
-           <th>Email</th>
-           <th>Fecha</th>
-           <th>Opciones</th>
-         </tr>
-       </thead>
-       <tbody *ngFor="let any of clientes">
-         <td>{{any.id}}</td>
-         <td>{{any.nombreApellido}}</td>
-         <td>{{any.tipoCliente}}</td>
-         <td>{{any.telefono}}</td>
-         <td>{{any.email}}</td>
-         <td>{{any.createAt}}</td>
-         <td>
-           <!-- <div class="button-group"> -->
-             <button class="btn btn-primary btn-sm" type="button" name="button"> Modificar </button>
-             <button class="btn btn-danger btn-sm" type="button" name="button"> Eliminar </button>
-           <!-- </div> -->
-         </td>
-       </tbody>
-    </table>
+<div style="padding-bottom:5%">
+    <div class="card border-primary mb-3">
+      <div class="card-header">
+        <h2>{{titulo}}</h2>
+      </div>
+      <div class="card-body">
+        <!-- <form> -->
+
+          <div *ngIf="(cliente)" class="form-group row">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Nombre :</label>
+            <div class="col-sm-9">
+              <input type="text" [(ngModel)]="cliente.nombre" class="form-control" placeholder="Nombre">
+            </div>
+          </div>
+
+          <div *ngIf="(cliente)" class="form-group row">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Apellido :</label>
+            <div class="col-sm-9">
+              <input type="text" [(ngModel)]="cliente.apellido" class="form-control"  placeholder="Apellido">
+            </div>
+          </div>
+
+          <div *ngIf="(cliente)" class="form-group row">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Nro Documento:</label>
+            <div class="col-sm-9">
+              <input type="text" [(ngModel)]="cliente.ci" class="form-control" placeholder="Nro Documento">
+            </div>
+          </div>
+
+          <div *ngIf="(cliente)" class="form-group row">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Direccion</label>
+            <div class="col-sm-9">
+              <input type="text" [(ngModel)]="cliente.direccion" class="form-control" placeholder="Direccion">
+            </div>
+          </div>
+
+          <div *ngIf="(cliente)" class="form-group row">
+              <label for="inputPassword3" class="col-sm-2 col-form-label">Nro Telefono:</label>
+              <div class="col-sm-9">
+                <input type="text" [(ngModel)]="cliente.telefono" class="form-control" placeholder="Nro Telefono">
+              </div>
+            </div>
+
+          <div class="text-right">
+            <button *ngIf="(isEdit)" type="submit" class="btn btn-success" (click)="submitEdit()"> Modificar </button>
+            <button *ngIf="(!isEdit)" type="submit" class="btn btn-success" (click)="submitSave()"> Guardar </button>
+            <button type="button" class="btn btn-danger" routerLink="/clientes"> Cancelar</button>
+          </div>
+        <!-- </form> -->
+      </div>
+    </div>
   </div>
-</div>

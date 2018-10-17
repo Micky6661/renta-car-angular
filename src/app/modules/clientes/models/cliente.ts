@@ -1,9 +1,8 @@
 export class Cliente {
   id: number;
-  nombreApellido: string;
+  ci: string;
+  nombre: string;
+  apellido: string;
   direccion: string;
   telefono: string;
-  email: string;
-  tipoCliente: string;
-  createAt: string;
 }

@@ -64,8 +64,9 @@
         </div>
 
         <div class="text-right">
-          <button type="submit" class="btn btn-success">Guardar</button>
-          <button type="button" class="btn btn-danger" routerLink="/vehiculos">Cancelar</button>
+          <button *ngIf="(isEdit)" type="submit" class="btn btn-success" (click)="submitEdit()"> Modificar </button>
+          <button *ngIf="(!isEdit)" type="submit" class="btn btn-success" (click)="submitSave()"> Guardar </button>
+          <button type="button" class="btn btn-danger" routerLink="/vehiculos"> Cancelar</button>
         </div>
       <!-- </form> -->
     </div>

@@ -1,23 +1,22 @@
-import { Cliente } from './../models/cliente';
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
-import { ClienteService } from '../services/cliente.service';
 import { Router } from '@angular/router';
+import { Renta } from '../models/renta';
+import { RentaService } from '../services/renta.service';
 
 @Component ({
-  selector: 'app-clientes',
-  templateUrl: '../partials/clientes.component.html'
-  // styleUrls: ['./clientes.component.css']
+  selector: 'app-rentas',
+  templateUrl: '../partials/rentas.component.html'
 })
-export class ClientesComponent implements OnInit {
+export class RentasComponent implements OnInit {
 
-  public data: Cliente[];
+  public data: Renta[];
 
-  constructor(private clienteService: ClienteService, private router: Router) {}
+  constructor(private rentaService: RentaService) {}
 
   ngOnInit() {
-    this.clienteService.getClientes().subscribe(
-      clientes => this.data = clientes
+    this.rentaService.getRentas().subscribe(
+      rentas => this.data = rentas
     );
   }
 
@@ -30,12 +29,12 @@ export class ClientesComponent implements OnInit {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Eliminar'
     }).then((result) => {
-      this.clienteService.deleteCliente(id).subscribe(
+      this.rentaService.delete(id).subscribe(
         response => {
           if (response['status'] === 202 || response['status'] === 200) {
             swal('Eliminado', 'Registro eliminado exitosamente', 'success');
-            this.clienteService.getClientes().subscribe(
-              clientes => this.data = clientes
+            this.rentaService.getRentas().subscribe(
+              rentas => this.data = rentas
             );
           } else {
             swal('Error', 'No se ha podido eliminar registro', 'error');

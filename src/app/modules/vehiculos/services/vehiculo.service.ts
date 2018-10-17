@@ -1,10 +1,10 @@
-import { async } from '@angular/core/testing';
 import { Injectable } from '@angular/core';
 import { Vehiculo } from '../models/vehiculo';
 import { Marca } from '../models/marca';
 import { Modelo } from '../models/modelo';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {catchError} from 'rxjs/internal/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class VehiculoService {
 
   private urlEndPoint = 'http://localhost:8080/api/vehiculos';
+  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }
 
@@ -19,25 +20,32 @@ export class VehiculoService {
     return this.http.get<Vehiculo[]>(this.urlEndPoint);
   }
 
-//   async getVehiculoById(carId: string) {
-//     const response = await this.http.get<Vehiculo>(this.urlEndPoint + '/' + carId).toPromise();
-//     return response;
-//  }
-
   public getVehiculoById(carId: string): Observable<Vehiculo> {
     return this.http.get<Vehiculo>(this.urlEndPoint + '/' + carId);
   }
 
-  public insertVehiculo(car: Vehiculo): Observable<Vehiculo> {
-    return this.http.post<Vehiculo>(this.urlEndPoint, car);
+  public insertVehiculo(car: Vehiculo) {
+    return this.http.post<Vehiculo>(this.urlEndPoint, car, {headers: this.httpHeaders})
+      .pipe(
+        catchError((error, caught) => {
+        return of(error);
+      }) as any);
   }
 
-  public updateVehiculo(car: Vehiculo): Observable<Vehiculo> {
-    return this.http.put<Vehiculo>(this.urlEndPoint + car.id, car);
+  public updateVehiculo(car: Vehiculo) {
+    return this.http.put<Vehiculo>(this.urlEndPoint + '/' + car.id, car, {headers: this.httpHeaders})
+    .pipe(
+      catchError((error, caught) => {
+      return of(error);
+    }) as any);
   }
 
-  public deleteVehiculo(carId: string): Observable<any> {
-    return this.http.delete(this.urlEndPoint + carId);
+  public deleteVehiculo(carId: string) {
+    return this.http.delete(this.urlEndPoint + '/' + carId, {headers: this.httpHeaders})
+    .pipe(
+      catchError((error, caught) => {
+      return of(error);
+    }) as any);
   }
 
   public getMarcas(): Observable<Marca[]> {

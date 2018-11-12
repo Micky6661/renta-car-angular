@@ -1,4 +1,3 @@
-import { DetalleRenta } from './../models/detalle-renta';
 import { EstadoRenta } from './../models/estado-renta';
 import { VehiculoService } from './../../vehiculos/services/vehiculo.service';
 import { ClienteService } from './../../clientes/services/cliente.service';
@@ -28,6 +27,18 @@ export class RentasFormComponent implements OnInit {
 
   detalleModel = new DetalleRenta;
   isEdit: boolean;
+
+  fechaInicioDetalle = new Date();
+  fechaFinDetalle = new Date();
+  vehiculoDetalle = new Vehiculo;
+
+  settings = {
+    bigBanner: true,
+    timePicker: true,
+    format: 'dd-MMM-yyyy hh:mm a',
+    defaultOpen: false,
+    closeOnSelect: false
+  };
 
   constructor(
     private router: Router ,
@@ -104,10 +115,18 @@ export class RentasFormComponent implements OnInit {
     );
   }
 
-  public addItem(detalleRenta: any) {
-    // if (detalleModel != null) {
-    //   if (detalleModel.vehiculo != null && detalleModel.fechaInicioRenta != null && detalleModel.fechaFinRenta != null) {
-    //     this.listaGuardar.push(detalleModel);
+  public addItem(vehiculoDetalle, fechaInicioDetalle, fechaFinDetalle) {
+    let obj = new DetalleRenta;
+    obj.vehiculo = vehiculoDetalle;
+    obj.fechaInicioRenta = fechaInicioDetalle;
+    obj.fechaFinRenta = fechaFinDetalle;
+    console.log(obj);
+
+    // if (detalleRenta != null) {
+    //   if (detalleRenta.vehiculo != null && detalleRenta.fechaInicioRenta != null && detalleRenta.fechaFinRenta != null) {
+    //     // this.listaGuardar.push(detalleModel);
+    //     console.log(detalleRenta);
+
     //   } else {
     //     swal('Aviso', 'Complete los campos obligatorios', 'warning');
     //   }

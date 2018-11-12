@@ -26,6 +26,7 @@ import { UserService } from './modules/public/services/user.service';
 
 import { RouterModule, Routes } from '@angular/router';
 import { DataTableModule } from 'angular-6-datatable';
+import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
 
 import { FormsModule } from '@angular/forms';
 import { RentasComponent } from './modules/rentas/controllers/rentas.component';
@@ -74,7 +75,8 @@ const routes: Routes = [
     HttpClientModule,
     DataTableModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    AngularDateTimePickerModule
   ],
   providers: [
     VehiculoService,

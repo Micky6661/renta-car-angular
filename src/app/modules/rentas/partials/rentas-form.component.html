@@ -20,7 +20,8 @@
       <div *ngIf="(renta)" class="form-group row">
         <label for="inputPassword3" class="col-sm-2 col-form-label">Fecha de Operacion:</label>
         <div class="col-sm-9">
-          <input type="date" [(ngModel)]="renta.fecha" class="form-control" placeholder="Fecha de Operacion">
+          <!-- <input type="date" [(ngModel)]="renta.fecha" class="form-control" placeholder="Fecha de Operacion"> -->
+          <angular2-date-picker class="form-control" [(ngModel)]="renta.fecha" [settings]="settings" placeholder="Fecha de Operacion"></angular2-date-picker>
         </div>
       </div>
 
@@ -56,7 +57,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="btn-group">
-            <button type="button" class="btn btn-primary" (click)="addItem()"><i class="fas fa-plus"></i> Agregar </button>
+            <button type="button" class="btn btn-primary" (click)="addItem(vehiculoDetalle,fechaInicioDetalle,fechaFinDetalle)"><i class="fas fa-plus"></i> Agregar </button>
             <button type="button" class="btn btn-success" (click)="editItem()"><i class="fas fa-pencil-alt"></i> Modificar</button>
             <button type="button" class="btn btn-danger" (click)="removeItem()"><i class="fas fa-trash"></i> Eliminar </button>
           </div>
@@ -65,18 +66,18 @@
       <br>
       <div class="row">
         <div class="col-sm-3">
-          <label for="renta.detalleRenta" class="col-form-label"><b> Vehiculo :</b></label>
-          <select class="form-control" [(ngModel)]="detalleModel.vehiculo">
+          <label for="input.detalleRenta" class="col-form-label"><b> Vehiculo :</b></label>
+          <select class="form-control" [(ngModel)]="vehiculoDetalle">
             <option *ngFor="let veh of listaVehiculos" [ngValue]="veh">{{veh.id}} - {{veh.marca.descripcion}} {{veh.modelo.descripcion}}</option>
           </select>
         </div>
         <div class="col-sm-3">
-          <label for="renta.fechaInicio" class="col-form-label"><b> Fecha Inicio :</b></label>
-          <input type="datetime" [(ngModel)]="detalleModel.fechaInicioRenta" class="form-control" placeholder="Fecha de Inicio">
+          <label for="input.fechaInicioRenta" class="col-form-label"><b> Fecha Inicio :</b></label>
+          <angular2-date-picker class="form-control" [(ngModel)]="fechaInicioDetalle" [settings]="settings" placeholder="Fecha de Inicio"></angular2-date-picker>
         </div>
         <div class="col-sm-3">
-            <label for="renta.fechaInicio" class="col-form-label"><b> Fecha Fin :</b></label>
-            <input type="date" [(ngModel)]="detalleModel.fechaFinRenta" class="form-control" placeholder="Fecha de Inicio">
+            <label for="input.fechaFinRenta" class="col-form-label"><b> Fecha Fin :</b></label>
+            <angular2-date-picker class="form-control" [(ngModel)]="fechaFinDetalle" [settings]="settings" placeholder="Fecha de Fin"></angular2-date-picker>
           </div>
       </div>
       <br>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Renta } from '../models/renta';
 import { catchError } from 'rxjs/internal/operators';
+import { EstadoRenta } from '../models/estado-renta';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,10 @@ export class RentaService {
 
   public getById(id: string): Observable<Renta> {
     return this.http.get<Renta>(this.urlEndPoint + '/' + id);
+  }
+
+  public getEstadosRentas(): Observable<EstadoRenta[]> {
+    return this.http.get<EstadoRenta[]>(this.urlEndPoint + '/estados');
   }
 
   public insert(renta: Renta) {

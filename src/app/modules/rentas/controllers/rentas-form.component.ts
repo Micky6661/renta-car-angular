@@ -1,3 +1,7 @@
+import { DetalleRenta } from './../models/detalle-renta';
+import { EstadoRenta } from './../models/estado-renta';
+import { VehiculoService } from './../../vehiculos/services/vehiculo.service';
+import { ClienteService } from './../../clientes/services/cliente.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert2';
@@ -14,23 +18,29 @@ import { DetalleRenta } from '../models/detalle-renta';
 export class RentasFormComponent implements OnInit {
 
   titulo: string;
+
   listaClientes: Cliente[];
   listaVehiculos: Vehiculo[];
+  listaEstados: EstadoRenta[];
+
   renta: Renta;
-  listaDetalles: DetalleRenta[];
+  listaDetalleRenta: DetalleRenta[];
 
   detalleModel = new DetalleRenta;
   isEdit: boolean;
 
-  /** Variables Logicas*/
-  listaEliminar: DetalleRenta[];
-  listaModificar: DetalleRenta[];
-  listaGuardar: DetalleRenta[];
-
-  constructor(private router: Router , private activatedRoute: ActivatedRoute, private rentaService: RentaService) { }
+  constructor(
+    private router: Router ,
+    private activatedRoute: ActivatedRoute,
+    private rentaService: RentaService,
+    private clienteService: ClienteService,
+    private vehiculoService: VehiculoService) { }
 
   ngOnInit() {
     this.getRenta();
+    this.getClientes();
+    this.getVehiculos();
+    this.getListaEstadosRenta();
   }
 
   public getRenta() {
@@ -45,20 +55,27 @@ export class RentasFormComponent implements OnInit {
       } else {
         this.titulo = 'Crear Renta';
         this.renta = new Renta;
+        this.listaDetalleRenta = this.renta.detalleRenta;
       }
     });
   }
 
-  public addItem(detalleModel: DetalleRenta) {
-    if (detalleModel != null) {
-      if (detalleModel.vehiculo != null && detalleModel.fechaInicioRenta != null && detalleModel.fechaFinRenta != null) {
-        this.listaGuardar.push(detalleModel);
-      } else {
-        swal('Aviso', 'Complete los campos obligatorios', 'warning');
-      }
-    } else {
-      swal('Aviso', 'Complete los campos obligatorios', 'warning');
-    }
+  public getClientes() {
+    this.clienteService.getClientes().subscribe(
+      clientes => this.listaClientes = clientes
+    );
+  }
+
+  public getVehiculos() {
+    this.vehiculoService.getVehiculos().subscribe(
+      vehiculos => this.listaVehiculos = vehiculos
+    );
+  }
+
+  public getListaEstadosRenta() {
+    this.rentaService.getEstadosRentas().subscribe(
+      estadosRentas => this.listaEstados = estadosRentas
+    );
   }
 
   public submitSave(): void {
@@ -87,4 +104,23 @@ export class RentasFormComponent implements OnInit {
     );
   }
 
+  public addItem(detalleRenta: any) {
+    // if (detalleModel != null) {
+    //   if (detalleModel.vehiculo != null && detalleModel.fechaInicioRenta != null && detalleModel.fechaFinRenta != null) {
+    //     this.listaGuardar.push(detalleModel);
+    //   } else {
+    //     swal('Aviso', 'Complete los campos obligatorios', 'warning');
+    //   }
+    // } else {
+    //   swal('Aviso', 'Complete los campos obligatorios', 'warning');
+    // }
+  }
+
+  public editItem(detalleRenta: any) {
+
+  }
+
+  public removeItem(detalleRenta: any) {
+
+  }
 }

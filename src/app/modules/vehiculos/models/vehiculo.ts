@@ -10,4 +10,5 @@ export class Vehiculo {
   motor: string;
   disponible: boolean;
   observacion: string;
+  precio: number;
 }

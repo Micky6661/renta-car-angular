@@ -20,7 +20,7 @@
       <div *ngIf="(renta)" class="form-group row">
         <label for="inputPassword3" class="col-sm-2 col-form-label">Fecha de Operacion:</label>
         <div class="col-sm-9">
-          <input type="text" [(ngModel)]="renta.fecha" class="form-control" placeholder="Fecha de Operacion">
+          <input type="date" [(ngModel)]="renta.fecha" class="form-control" placeholder="Fecha de Operacion">
         </div>
       </div>
 
@@ -28,8 +28,8 @@
         <label for="inputPassword3" class="col-sm-2 col-form-label">Estado:</label>
         <div class="col-sm-9">
           <select class="form-control" [(ngModel)]="renta.estado" required>
-            <option [ngValue]=0>Pendiente</option>
-            <option [ngValue]=1>Cancelado</option>
+            <option *ngFor="let est of listaEstados" [ngValue]="est">{{est.descripcion}}</option>
+            <option *ngIf="(renta.estado)" [ngValue]="renta.estado" selected>{{renta.estado.descripcion}}</option>
           </select>
         </div>
       </div>
@@ -54,9 +54,11 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-3">
-          <div class="button-group">
-            <button class="btn btn-primary" (click)="addItem(detalleModel)"><i class="fas fa-plus"></i> Agregar </button>
+        <div class="col-md-12">
+          <div class="btn-group">
+            <button type="button" class="btn btn-primary" (click)="addItem()"><i class="fas fa-plus"></i> Agregar </button>
+            <button type="button" class="btn btn-success" (click)="editItem()"><i class="fas fa-pencil-alt"></i> Modificar</button>
+            <button type="button" class="btn btn-danger" (click)="removeItem()"><i class="fas fa-trash"></i> Eliminar </button>
           </div>
         </div>
       </div>
@@ -65,16 +67,16 @@
         <div class="col-sm-3">
           <label for="renta.detalleRenta" class="col-form-label"><b> Vehiculo :</b></label>
           <select class="form-control" [(ngModel)]="detalleModel.vehiculo">
-            <option *ngFor="let veh of listaVehiculos" [ngValue]="veh">{{veh.id}} - {{veh.marca}} {{veh.modelo}}</option>
+            <option *ngFor="let veh of listaVehiculos" [ngValue]="veh">{{veh.id}} - {{veh.marca.descripcion}} {{veh.modelo.descripcion}}</option>
           </select>
         </div>
         <div class="col-sm-3">
           <label for="renta.fechaInicio" class="col-form-label"><b> Fecha Inicio :</b></label>
-          <input type="date" [(ngModel)]="detalleModel.fechaInicio" class="form-control" placeholder="Fecha de Inicio">
+          <input type="datetime" [(ngModel)]="detalleModel.fechaInicioRenta" class="form-control" placeholder="Fecha de Inicio">
         </div>
         <div class="col-sm-3">
             <label for="renta.fechaInicio" class="col-form-label"><b> Fecha Fin :</b></label>
-            <input type="date" [(ngModel)]="detalleModel.fechaFin" class="form-control" placeholder="Fecha de Inicio">
+            <input type="date" [(ngModel)]="detalleModel.fechaFinRenta" class="form-control" placeholder="Fecha de Inicio">
           </div>
       </div>
       <br>
@@ -88,17 +90,16 @@
               <th scope="col">Fecha Inicio </th>
               <th scope="col">Fecha Fin </th>
               <th scope="col">Total </th>
-              <th scope="col">Opciones </th>
             </tr>
           </thead>
           <tbody>
-              <tr *ngFor="let item of detalleModel">
-                  <th scope="row" >{{item.Id}}</th> /*this row data get*/
-                  <td>{{item.name}}</td>
-                  <td>{{item.surname}}</td>
-                  <td>{{item.code}}</td>
-                 <button type="button" (click)="editItem(item)"><i class="fas fa-pencil-alt"></i> Modificar</button>
-                 <button type="button" (click)="removeItem(item)"><i class="fas fa-trash"></i> Eliminar </button>
+              <tr *ngFor="let item of listaDetalleRenta">
+                  <th scope="row">{{item.id}}</th> /*this row data get*/
+                  <td>{{item.vehiculo.marca}} - {{item.vehiculo.modelo}}</td>
+                  <td>{{item.vehiculo.precio}}</td>
+                  <td>{{item.fechaInicioRenta}}</td>
+                  <td>{{item.fechaInicioRenta}}</td>
+                  <td>{{item.monto}}</td>
               </tr>
           <tbody>
         </table>
@@ -114,5 +115,4 @@
     </div>
 
   </div>
-
 </div>

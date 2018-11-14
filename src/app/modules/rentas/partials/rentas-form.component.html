@@ -57,9 +57,12 @@
       <div class="row">
         <div class="col-md-12">
           <div class="btn-group">
-            <button type="button" class="btn btn-primary" (click)="addItem(vehiculoDetalle,fechaInicioDetalle,fechaFinDetalle)"><i class="fas fa-plus"></i> Agregar </button>
-            <button type="button" class="btn btn-success" (click)="editItem()"><i class="fas fa-pencil-alt"></i> Modificar</button>
-            <button type="button" class="btn btn-danger" (click)="removeItem()"><i class="fas fa-trash"></i> Eliminar </button>
+            <button type="button" class="btn btn-primary" (click)="addItem(vehiculoDetalle,fechaInicioDetalle,fechaFinDetalle)"><i
+                class="fas fa-plus"></i> Agregar </button>
+            <button type="button" class="btn btn-success" (click)="editItem()"><i class="fas fa-pencil-alt"></i>
+              Modificar</button>
+            <button type="button" class="btn btn-danger" (click)="removeItem()"><i class="fas fa-trash"></i> Eliminar
+            </button>
           </div>
         </div>
       </div>
@@ -68,7 +71,8 @@
         <div class="col-sm-3">
           <label for="input.detalleRenta" class="col-form-label"><b> Vehiculo :</b></label>
           <select class="form-control" [(ngModel)]="vehiculoDetalle">
-            <option *ngFor="let veh of listaVehiculos" [ngValue]="veh">{{veh.id}} - {{veh.marca.descripcion}} {{veh.modelo.descripcion}}</option>
+            <option *ngFor="let veh of listaVehiculos" [ngValue]="veh">{{veh.id}} - {{veh.marca.descripcion}}
+              {{veh.modelo.descripcion}}</option>
           </select>
         </div>
         <div class="col-sm-3">
@@ -76,13 +80,13 @@
           <angular2-date-picker class="form-control" [(ngModel)]="fechaInicioDetalle" [settings]="settings" placeholder="Fecha de Inicio"></angular2-date-picker>
         </div>
         <div class="col-sm-3">
-            <label for="input.fechaFinRenta" class="col-form-label"><b> Fecha Fin :</b></label>
-            <angular2-date-picker class="form-control" [(ngModel)]="fechaFinDetalle" [settings]="settings" placeholder="Fecha de Fin"></angular2-date-picker>
-          </div>
+          <label for="input.fechaFinRenta" class="col-form-label"><b> Fecha Fin :</b></label>
+          <angular2-date-picker class="form-control" [(ngModel)]="fechaFinDetalle" [settings]="settings" placeholder="Fecha de Fin"></angular2-date-picker>
+        </div>
       </div>
       <br>
-      <div class="row col-sm-12">
-        <table class="table table-bordered ">
+      <div class="row col-md-12">
+        <!-- <table class="table table-bordered ">
           <thead class="th-dark">
             <tr>
               <th scope="col">#</th>
@@ -103,7 +107,44 @@
                   <td>{{item.monto}}</td>
               </tr>
           <tbody>
-        </table>
+        </table> -->
+        <!-- <table mat-table [dataSource]="listaDetalleRenta" class="mat-elevation-z8" style="width: 100%">
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="vehiculo.descripcion">
+            <th mat-header-cell *matHeaderCellDef>Vehiculo</th>
+            <td mat-cell *matCellDef="let element"> {{element.vehiculo.descripcion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="vehiculo.precio">
+            <th mat-header-cell *matHeaderCellDef> Precio Unitario </th>
+            <td mat-cell *matCellDef="let element"> {{element.vehiculo.precio}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Fecha Inicio">
+            <th mat-header-cell *matHeaderCellDef> Fecha Inicio</th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaInicioRenta}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef> Symbol </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaFinRenta}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+          </tr>
+        </table> -->
       </div>
 
     </div>

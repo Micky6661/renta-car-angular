@@ -6,7 +6,7 @@ import { DetalleRenta } from './detalle-renta';
 export class Renta {
   id: number;
   cliente: Cliente;
-  fecha: string;
+  fecha: Date;
   estado: EstadoRenta;
   user: User;
   observacion: string;

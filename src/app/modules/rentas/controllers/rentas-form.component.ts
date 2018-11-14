@@ -10,6 +10,10 @@ import { Cliente } from '../../clientes/models/cliente';
 import { Vehiculo } from '../../vehiculos/models/vehiculo';
 import { DetalleRenta } from '../models/detalle-renta';
 
+import {SelectionModel} from '@angular/cdk/collections';
+  import {MatTableDataSource} from '@angular/material';
+
+
 @Component ({
   selector: 'app-rentas-form',
   templateUrl: '../partials/rentas-form.component.html'
@@ -22,15 +26,24 @@ export class RentasFormComponent implements OnInit {
   listaVehiculos: Vehiculo[];
   listaEstados: EstadoRenta[];
 
-  renta: Renta;
-  listaDetalleRenta: DetalleRenta[];
+  /* Variables modelos para Submit */
+  // saveRenta: RentaDTO;
+  savedetalleRenta = {
+    inserted : [],
+    edited : [],
+    deleted : []
+  };
+  /* Variables modelos para Submit */
 
   detalleModel = new DetalleRenta;
-  isEdit: boolean;
-
+  renta: Renta;
+  listaDetalleRenta;
   fechaInicioDetalle = new Date();
   fechaFinDetalle = new Date();
   vehiculoDetalle = new Vehiculo;
+
+  /* Visual Settings Init*/
+  isEdit: boolean;
 
   settings = {
     bigBanner: true,
@@ -39,6 +52,12 @@ export class RentasFormComponent implements OnInit {
     defaultOpen: false,
     closeOnSelect: false
   };
+
+  // displayedColumns: string[] = ['#', 'Vehiculo', 'Precio Unitario', 'Fecha Inicio', 'Fecha Fin', 'Total'];
+  displayedColumns: string[] = ['select', 'Vehiculo', 'Precio Unitario', 'Fecha Inicio', 'Fecha Fin'];
+  selection = new SelectionModel(true, []);
+
+  /* Visual Settings End*/
 
   constructor(
     private router: Router ,
@@ -52,6 +71,7 @@ export class RentasFormComponent implements OnInit {
     this.getClientes();
     this.getVehiculos();
     this.getListaEstadosRenta();
+
   }
 
   public getRenta() {
@@ -62,13 +82,28 @@ export class RentasFormComponent implements OnInit {
         this.rentaService.getById(id).subscribe(
           (renta) => this.renta = renta
         );
+        this.listaDetalleRenta = this.renta.detalleRenta;
         this.isEdit = true;
       } else {
         this.titulo = 'Crear Renta';
         this.renta = new Renta;
-        this.listaDetalleRenta = this.renta.detalleRenta;
+        this.listaDetalleRenta = [];
       }
     });
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.listaDetalleRenta.length;
+    // console.log(numRows);
+
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ? this.selection.clear() : this.listaDetalleRenta.forEach(row => this.selection.select(row));
+    // console.log(this.selection);
   }
 
   public getClientes() {
@@ -87,6 +122,46 @@ export class RentasFormComponent implements OnInit {
     this.rentaService.getEstadosRentas().subscribe(
       estadosRentas => this.listaEstados = estadosRentas
     );
+  }
+
+  public addItem(vehiculoDetalle, fechaInicioDetalle, fechaFinDetalle) {
+    let obj = new DetalleRenta;
+    obj.vehiculo = vehiculoDetalle;
+    obj.fechaInicioRenta = fechaInicioDetalle;
+    obj.fechaFinRenta = fechaFinDetalle;
+    this.savedetalleRenta.inserted.push(obj);
+    // if (detalleRenta != null) {
+    //   if (detalleRenta.vehiculo != null && detalleRenta.fechaInicioRenta != null && detalleRenta.fechaFinRenta != null) {
+    //     // this.listaGuardar.push(detalleModel);
+    //     console.log(detalleRenta);
+
+    //   } else {
+    //     swal('Aviso', 'Complete los campos obligatorios', 'warning');
+    //   }
+    // } else {
+    //   swal('Aviso', 'Complete los campos obligatorios', 'warning');
+    // }
+  }
+
+  public editItem() {
+    const seleccion = this.selection.selected[0];
+
+    this.vehiculoDetalle = seleccion.vehiculo;
+    this.fechaInicioDetalle = seleccion.fechaInicioRenta;
+    this.fechaFinDetalle = seleccion.fechaFinRenta;
+  }
+
+  public saveEditItem(vehiculoDetalle, fechaInicioDetalle, fechaFinDetalle) {
+    let obj = new DetalleRenta;
+    obj.vehiculo = vehiculoDetalle;
+    obj.fechaInicioRenta = fechaInicioDetalle;
+    obj.fechaFinRenta = fechaFinDetalle;
+    this.savedetalleRenta.edited.push(obj);
+    // this.savedetalleRenta.edited.push(obj);
+  }
+
+  public removeItem(detalleRenta: DetalleRenta) {
+    // this.savedetalleRenta.deleted.push(detalleRenta);
   }
 
   public submitSave(): void {
@@ -113,33 +188,5 @@ export class RentasFormComponent implements OnInit {
         }
       }
     );
-  }
-
-  public addItem(vehiculoDetalle, fechaInicioDetalle, fechaFinDetalle) {
-    let obj = new DetalleRenta;
-    obj.vehiculo = vehiculoDetalle;
-    obj.fechaInicioRenta = fechaInicioDetalle;
-    obj.fechaFinRenta = fechaFinDetalle;
-    console.log(obj);
-
-    // if (detalleRenta != null) {
-    //   if (detalleRenta.vehiculo != null && detalleRenta.fechaInicioRenta != null && detalleRenta.fechaFinRenta != null) {
-    //     // this.listaGuardar.push(detalleModel);
-    //     console.log(detalleRenta);
-
-    //   } else {
-    //     swal('Aviso', 'Complete los campos obligatorios', 'warning');
-    //   }
-    // } else {
-    //   swal('Aviso', 'Complete los campos obligatorios', 'warning');
-    // }
-  }
-
-  public editItem(detalleRenta: any) {
-
-  }
-
-  public removeItem(detalleRenta: any) {
-
   }
 }

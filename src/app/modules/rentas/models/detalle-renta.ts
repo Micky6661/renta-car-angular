@@ -5,7 +5,7 @@ export class DetalleRenta {
    id: number;
    renta: Renta;
    vehiculo: Vehiculo;
-   fechaInicioRenta: string;
-   fechaFinRenta: string;
+   fechaInicioRenta: Date;
+   fechaFinRenta: Date;
    monto: number;
 }

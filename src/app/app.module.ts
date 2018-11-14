@@ -14,6 +14,15 @@ import { VehiculosFormComponent } from './modules/vehiculos/controllers/vehiculo
 import { ClientesComponent } from './modules/clientes/controllers/clientes.component';
 import { ClientesFormComponent } from './modules/clientes/controllers/clientes-form.component';
 
+import { RentasComponent } from './modules/rentas/controllers/rentas.component';
+import { RentasFormComponent } from './modules/rentas/controllers/rentas-form.component';
+
+import { MarcasComponent } from './modules/vehiculos/controllers/marcas.component';
+import { MarcasFormComponent } from './modules/vehiculos/controllers/marcas-form.component';
+
+import { ModelosComponent } from './modules/vehiculos/controllers/modelos.component';
+import { ModelosFormComponent } from './modules/vehiculos/controllers/modelos-form.component';
+
 import { LoginComponent } from './modules/public/controllers/login.component';
 /**Components imports**/
 
@@ -22,15 +31,19 @@ import { RentaService } from './modules/rentas/services/renta.service';
 import { ClienteService } from './modules/clientes/services/cliente.service';
 import { VehiculoService } from './modules/vehiculos/services/vehiculo.service';
 import { UserService } from './modules/public/services/user.service';
+import { MarcaService } from './modules/vehiculos/services/marca.service';
+import { ModeloService } from './modules/vehiculos/services/modelo.service';
 /**Services Imports **/
 
 import { RouterModule, Routes } from '@angular/router';
 import { DataTableModule } from 'angular-6-datatable';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 import { FormsModule } from '@angular/forms';
-import { RentasComponent } from './modules/rentas/controllers/rentas.component';
-import { RentasFormComponent } from './modules/rentas/controllers/rentas-form.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -46,6 +59,17 @@ const routes: Routes = [
   { path: 'clientes', component: ClientesComponent },
   { path: 'clientes/create', component: ClientesFormComponent },
   { path: 'clientes/update/:id', component: ClientesFormComponent },
+
+   /** Marcas */
+   { path: 'marcas', component: MarcasComponent },
+   { path: 'marcas/create', component: MarcasFormComponent },
+   { path: 'marcas/update/:id', component: MarcasFormComponent },
+
+    /** Modelos */
+  { path: 'modelos', component: ModelosComponent },
+  { path: 'modelos/create', component: ModelosFormComponent },
+  { path: 'modelos/update/:id', component: ModelosFormComponent },
+
   /** Rentas **/
   { path: 'rentas', component: RentasComponent },
   { path: 'rentas/create', component: RentasFormComponent },
@@ -65,6 +89,12 @@ const routes: Routes = [
     ClientesComponent,
     ClientesFormComponent,
 
+    MarcasComponent,
+    MarcasFormComponent,
+
+    ModelosComponent,
+    ModelosFormComponent,
+
     RentasComponent,
     RentasFormComponent,
 
@@ -76,13 +106,17 @@ const routes: Routes = [
     DataTableModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    AngularDateTimePickerModule
+    AngularDateTimePickerModule,
+    MatTableModule,
+    MatCheckboxModule
   ],
   providers: [
     VehiculoService,
     ClienteService,
     RentaService,
-    UserService
+    UserService,
+    MarcaService,
+    ModeloService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,23 @@
+<div style="padding-bottom:5%">
+  <div class="card border-primary mb-3">
+    <div class="card-header">
+      <h2>{{titulo}}</h2>
+    </div>
+    <div class="card-body">
+      <!-- <form> -->
+        <div *ngIf="(marca)" class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Nombre de Marca :</label>
+          <div class="col-sm-9">
+            <input type="text" [(ngModel)]="marca.descripcion" class="form-control" placeholder="Nombre Marca">
+          </div>
+        </div>
+
+        <div class="text-right">
+          <button *ngIf="(isEdit)" type="submit" class="btn btn-success" (click)="submitEdit()"> Modificar </button>
+          <button *ngIf="(!isEdit)" type="submit" class="btn btn-success" (click)="submitSave()"> Guardar </button>
+          <button type="button" class="btn btn-danger" routerLink="/marcas"> Cancelar</button>
+        </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>

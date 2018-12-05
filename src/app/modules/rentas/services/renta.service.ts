@@ -20,9 +20,14 @@ export class RentaService {
     return this.http.get<Renta[]>(this.urlEndPoint);
   }
 
-  public getById(id: string): Observable<Renta> {
-    return this.http.get<Renta>(this.urlEndPoint + '/' + id);
-  }
+  // public async getById(id: string): Observable<Renta> {
+  //   return this.http.get<Renta>(this.urlEndPoint + '/' + id);
+  // }
+
+  async getById(id: string) {
+    const response = await this.http.get<Renta>(this.urlEndPoint + '/' + id).toPromise();
+    return response;
+ }
 
   public getEstadosRentas(): Observable<EstadoRenta[]> {
     return this.http.get<EstadoRenta[]>(this.urlEndPoint + '/estados');

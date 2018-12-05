@@ -11,5 +11,5 @@ export class Renta {
   user: User;
   observacion: string;
   montoTotal: number;
-  detalleRenta: DetalleRenta[];
+  detalleRentaList: DetalleRenta[];
 }

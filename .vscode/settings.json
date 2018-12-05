@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/9d4d04af-d44e-4eff-a787-0e33e899bb1f/resourceGroups/appsvc_rg_linux_centralus/providers/Microsoft.Web/sites/rentacar-web",
+    "appService.deploySubpath": ""
+}

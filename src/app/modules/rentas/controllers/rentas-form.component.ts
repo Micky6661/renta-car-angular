@@ -10,10 +10,6 @@ import { Cliente } from '../../clientes/models/cliente';
 import { Vehiculo } from '../../vehiculos/models/vehiculo';
 import { DetalleRenta } from '../models/detalle-renta';
 
-import {SelectionModel} from '@angular/cdk/collections';
-  import {MatTableDataSource} from '@angular/material';
-
-
 @Component ({
   selector: 'app-rentas-form',
   templateUrl: '../partials/rentas-form.component.html'
@@ -53,10 +49,6 @@ export class RentasFormComponent implements OnInit {
     closeOnSelect: false
   };
 
-  // displayedColumns: string[] = ['#', 'Vehiculo', 'Precio Unitario', 'Fecha Inicio', 'Fecha Fin', 'Total'];
-  displayedColumns: string[] = ['select', 'Vehiculo', 'Precio Unitario', 'Fecha Inicio', 'Fecha Fin'];
-  selection = new SelectionModel(true, []);
-
   /* Visual Settings End*/
 
   constructor(
@@ -71,18 +63,15 @@ export class RentasFormComponent implements OnInit {
     this.getClientes();
     this.getVehiculos();
     this.getListaEstadosRenta();
-
   }
 
-  public getRenta() {
-    this.activatedRoute.params.subscribe(params => {
+  public async getRenta() {
+    await this.activatedRoute.params.subscribe(async params => {
       const id = params['id'];
       if (id) {
         this.titulo = 'Modificar Renta';
-        this.rentaService.getById(id).subscribe(
-          (renta) => this.renta = renta
-        );
-        this.listaDetalleRenta = this.renta.detalleRenta;
+        this.renta =  await this.rentaService.getById(id);
+        this.listaDetalleRenta = this.renta.detalleRentaList;
         this.isEdit = true;
       } else {
         this.titulo = 'Crear Renta';
@@ -90,20 +79,6 @@ export class RentasFormComponent implements OnInit {
         this.listaDetalleRenta = [];
       }
     });
-  }
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.listaDetalleRenta.length;
-    // console.log(numRows);
-
-    return numSelected === numRows;
-  }
-
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ? this.selection.clear() : this.listaDetalleRenta.forEach(row => this.selection.select(row));
-    // console.log(this.selection);
   }
 
   public getClientes() {
@@ -124,8 +99,12 @@ export class RentasFormComponent implements OnInit {
     );
   }
 
+  public putSelectedValue(row) {
+    console.log(row);
+  }
+
   public addItem(vehiculoDetalle, fechaInicioDetalle, fechaFinDetalle) {
-    let obj = new DetalleRenta;
+    const obj = new DetalleRenta;
     obj.vehiculo = vehiculoDetalle;
     obj.fechaInicioRenta = fechaInicioDetalle;
     obj.fechaFinRenta = fechaFinDetalle;
@@ -144,15 +123,11 @@ export class RentasFormComponent implements OnInit {
   }
 
   public editItem() {
-    const seleccion = this.selection.selected[0];
 
-    this.vehiculoDetalle = seleccion.vehiculo;
-    this.fechaInicioDetalle = seleccion.fechaInicioRenta;
-    this.fechaFinDetalle = seleccion.fechaFinRenta;
   }
 
   public saveEditItem(vehiculoDetalle, fechaInicioDetalle, fechaFinDetalle) {
-    let obj = new DetalleRenta;
+    const obj = new DetalleRenta;
     obj.vehiculo = vehiculoDetalle;
     obj.fechaInicioRenta = fechaInicioDetalle;
     obj.fechaFinRenta = fechaFinDetalle;

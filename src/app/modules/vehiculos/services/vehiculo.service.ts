@@ -11,7 +11,7 @@ import {catchError} from 'rxjs/internal/operators';
 })
 export class VehiculoService {
 
-  private urlEndPoint = 'http://localhost:8080/api/vehiculos';
+  private urlEndPoint = 'http://' + window.location.hostname + ':8080/api/vehiculos';
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }

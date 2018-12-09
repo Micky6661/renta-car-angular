@@ -10,7 +10,7 @@ import { Observable, of } from 'rxjs';
 
 export class UserService {
 
-  private urlEndPoint = 'http://localhost:8080/api/users';
+  private urlEndPoint = 'http://' + window.location.hostname + ':8080/api/users';
 
   constructor(private http: HttpClient) { }
 

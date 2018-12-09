@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/internal/operators';
 })
 export class MarcaService {
 
-  private urlEndPoint = 'http://localhost:8080/api/marcas';
+  private urlEndPoint = 'http://' + window.location.hostname + ':8080/api/marcas';
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }

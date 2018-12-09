@@ -1,3 +1,4 @@
+import { RentaDTO } from './../models/rentaDTO';
 import { EstadoRenta } from './../models/estado-renta';
 import { VehiculoService } from './../../vehiculos/services/vehiculo.service';
 import { ClienteService } from './../../clientes/services/cliente.service';
@@ -10,9 +11,10 @@ import { Cliente } from '../../clientes/models/cliente';
 import { Vehiculo } from '../../vehiculos/models/vehiculo';
 import { DetalleRenta } from '../models/detalle-renta';
 
-@Component ({
+@Component({
   selector: 'app-rentas-form',
-  templateUrl: '../partials/rentas-form.component.html'
+  templateUrl: '../partials/rentas-form.component.html',
+  // styleUrls: ['../styles/datetime.css']
 })
 export class RentasFormComponent implements OnInit {
 
@@ -21,13 +23,13 @@ export class RentasFormComponent implements OnInit {
   listaClientes: Cliente[];
   listaVehiculos: Vehiculo[];
   listaEstados: EstadoRenta[];
-
+  selected = null;
   /* Variables modelos para Submit */
   // saveRenta: RentaDTO;
   savedetalleRenta = {
-    inserted : [],
-    edited : [],
-    deleted : []
+    inserted: [],
+    edited: [],
+    deleted: []
   };
   /* Variables modelos para Submit */
 
@@ -52,7 +54,7 @@ export class RentasFormComponent implements OnInit {
   /* Visual Settings End*/
 
   constructor(
-    private router: Router ,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private rentaService: RentaService,
     private clienteService: ClienteService,
@@ -70,14 +72,23 @@ export class RentasFormComponent implements OnInit {
       const id = params['id'];
       if (id) {
         this.titulo = 'Modificar Renta';
-        this.renta =  await this.rentaService.getById(id);
-        this.listaDetalleRenta = this.renta.detalleRentaList;
+        this.renta = await this.rentaService.getById(id);
+        if (this.renta) {
+          this.listaDetalleRenta = this.renta.detalleRentaList;
+        }
         this.isEdit = true;
       } else {
         this.titulo = 'Crear Renta';
         this.renta = new Renta;
         this.listaDetalleRenta = [];
       }
+    });
+  }
+
+  public refreshTotal() {
+    this.renta.montoTotal = 0;
+    this.listaDetalleRenta.forEach(element => {
+      this.renta.montoTotal += this.calculatePrice(element.fechaInicioRenta, element.fechaFinRenta, element.vehiculo.precio) * -1;
     });
   }
 
@@ -100,47 +111,68 @@ export class RentasFormComponent implements OnInit {
   }
 
   public putSelectedValue(row) {
-    console.log(row);
+    this.selected = row;
   }
 
   public addItem(vehiculoDetalle, fechaInicioDetalle, fechaFinDetalle) {
-    const obj = new DetalleRenta;
-    obj.vehiculo = vehiculoDetalle;
-    obj.fechaInicioRenta = fechaInicioDetalle;
-    obj.fechaFinRenta = fechaFinDetalle;
-    this.savedetalleRenta.inserted.push(obj);
-    // if (detalleRenta != null) {
-    //   if (detalleRenta.vehiculo != null && detalleRenta.fechaInicioRenta != null && detalleRenta.fechaFinRenta != null) {
-    //     // this.listaGuardar.push(detalleModel);
-    //     console.log(detalleRenta);
+    let obj = {
+      vehiculo : vehiculoDetalle,
+      fechaInicioRenta : new Date(fechaInicioDetalle).getTime(),
+      fechaFinRenta : new Date(fechaFinDetalle).getTime()
+    };
 
-    //   } else {
-    //     swal('Aviso', 'Complete los campos obligatorios', 'warning');
-    //   }
-    // } else {
-    //   swal('Aviso', 'Complete los campos obligatorios', 'warning');
-    // }
+    if (obj != null) {
+      if (obj.vehiculo != null && obj.fechaInicioRenta != null && obj.fechaFinRenta != null) {
+        this.listaDetalleRenta.push(obj);
+        this.savedetalleRenta.inserted.push(obj);
+        obj = null;
+      } else {
+        swal('Aviso', 'Complete los campos obligatorios', 'warning');
+      }
+    } else {
+      swal('Aviso', 'Complete los campos obligatorios', 'warning');
+    }
+    this.refreshTotal();
   }
 
-  public editItem() {
-
+  public removeItem() {
+    swal({
+      title: 'Eliminar',
+      text: '¿Deseas eliminar el registro seleccionado?',
+      type: 'question',
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.value) {
+        for (let index = 0; index < this.listaDetalleRenta.length; index++) {
+          if (this.selected.id == this.listaDetalleRenta[index].id) {
+            this.listaDetalleRenta.splice(index, 1);
+            this.savedetalleRenta.deleted.push(this.selected);
+            swal('Eliminado', 'Registro eliminado', 'success');
+            this.refreshTotal();
+          }
+        }
+      }
+    });
   }
 
-  public saveEditItem(vehiculoDetalle, fechaInicioDetalle, fechaFinDetalle) {
-    const obj = new DetalleRenta;
-    obj.vehiculo = vehiculoDetalle;
-    obj.fechaInicioRenta = fechaInicioDetalle;
-    obj.fechaFinRenta = fechaFinDetalle;
-    this.savedetalleRenta.edited.push(obj);
-    // this.savedetalleRenta.edited.push(obj);
-  }
-
-  public removeItem(detalleRenta: DetalleRenta) {
-    // this.savedetalleRenta.deleted.push(detalleRenta);
+  public calculatePrice(date1, date2, precioDia) {
+    // Get 1 day in milliseconds
+    const one_day = 1000 * 60 * 60 * 24;
+    // Calculate the difference in milliseconds
+    const difference_ms = date1 - date2;
+    const totalDate =  difference_ms / one_day;
+    // Convert back to days and return
+    return totalDate * precioDia;
   }
 
   public submitSave(): void {
-    this.rentaService.insert(this.renta).subscribe(
+    const rentaDTO = new RentaDTO;
+    rentaDTO.renta = this.renta;
+    rentaDTO.inserted = this.savedetalleRenta.inserted;
+    rentaDTO.deleted = this.savedetalleRenta.deleted;
+    this.rentaService.insert(rentaDTO).subscribe(
       response => {
         if (response['status'] === 201 || response['status'] === 200) {
           this.router.navigate(['/rentas']);
@@ -153,7 +185,11 @@ export class RentasFormComponent implements OnInit {
   }
 
   public submitEdit(): void {
-    this.rentaService.update(this.renta).subscribe(
+    const rentaDTO = new RentaDTO;
+    rentaDTO.renta = this.renta;
+    rentaDTO.inserted = this.savedetalleRenta.inserted;
+    rentaDTO.deleted = this.savedetalleRenta.deleted;
+    this.rentaService.update(rentaDTO).subscribe(
       response => {
         if (response['status'] === 202 || response['status'] === 200) {
           this.router.navigate(['/rentas']);

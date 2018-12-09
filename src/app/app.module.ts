@@ -38,9 +38,6 @@ import { ModeloService } from './modules/vehiculos/services/modelo.service';
 import { RouterModule, Routes } from '@angular/router';
 import { DataTableModule } from 'angular-6-datatable';
 import { AngularDateTimePickerModule } from 'angular2-datetimepicker';
-import { MatTableModule } from '@angular/material/table';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-
 
 import { FormsModule } from '@angular/forms';
 
@@ -107,8 +104,6 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes),
     AngularDateTimePickerModule,
-    MatTableModule,
-    MatCheckboxModule
   ],
   providers: [
     VehiculoService,

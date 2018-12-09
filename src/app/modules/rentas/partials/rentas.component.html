@@ -29,7 +29,7 @@
             <tr *ngFor="let item of mf.data">
               <td>{{item.id}}</td>
               <td>{{item.cliente.nombre}} {{item.cliente.apellido}}</td>
-              <td>{{item.fechaOperacion}}</td>
+              <td>{{item.fechaOperacion | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
               <td>{{item.montoTotal}}</td>
               <td class="btn-group row">
                 <button class="btn btn-primary btn-sm " type="button" routerLink="/rentas/update/{{item.id}}" name="button"><i class="fas fa-pencil-alt"></i> Modificar </button>

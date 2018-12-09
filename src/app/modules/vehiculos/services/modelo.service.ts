@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/internal/operators';
 })
 export class ModeloService {
 
-  private urlEndPoint = 'http://localhost:8080/api/modelos';
+  private urlEndPoint = 'http://' + window.location.hostname + ':8080/api/modelos';
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }

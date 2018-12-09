@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/internal/operators';
 
 export class ClienteService {
 
-  private urlEndPoint = 'http://localhost:8080/api/clientes';
+  private urlEndPoint = 'http://' + window.location.hostname + ':8080/api/clientes';
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }

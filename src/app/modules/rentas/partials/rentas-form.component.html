@@ -17,11 +17,11 @@
         </div>
       </div>
 
-      <div *ngIf="(renta)" class="form-group row">
+      <div *ngIf="(renta)" class="form-group row" hidden="true">
         <label for="inputPassword3" class="col-sm-2 col-form-label">Fecha de Operacion:</label>
         <div class="col-sm-9">
           <!-- <input type="date" [(ngModel)]="renta.fecha" class="form-control" placeholder="Fecha de Operacion"> -->
-          <angular2-date-picker class="form-control" [(ngModel)]="renta.fechaOperacion" [settings]="settings" placeholder="Fecha de Operacion"></angular2-date-picker>
+          <angular2-date-picker class="form-control" [(ngModel)]="renta.fechaOperacion" [settings]="settings" placeholder="Fecha de Operacion" readonly></angular2-date-picker>
         </div>
       </div>
 

@@ -25,13 +25,13 @@ export class ModelosFormComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       const id = params['id'];
       if (id) {
-        this.titulo = 'Modificar Marca';
+        this.titulo = 'Modificar Modelo';
         this.modeloService.getModeloById(id).subscribe(
           (modelo) => this.modelo = modelo
         );
         this.isEdit = true;
       } else {
-        this.titulo = 'Crear Marca';
+        this.titulo = 'Crear Modelo';
         this.modelo = new Modelo;
       }
     });
